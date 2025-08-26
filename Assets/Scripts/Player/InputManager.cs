@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class NewBehaviourScript : MonoBehaviour
 {
     private PlayerInput playerInput; //calls all classes
-    private PlayerInput.OnFootActions onFoot;
+    public PlayerInput.OnFootActions onFoot;
     private playerMotor motor;
     private PlayerLook look;
     // Start is called before the first frame update

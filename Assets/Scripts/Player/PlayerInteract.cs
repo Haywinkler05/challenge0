@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private LayerMask mask;
     private PlayerUI playerUI;
+    private PlayerInput inputManager;
     // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<PlayerLook>().cam;
         playerUI = GetComponent<PlayerUI>();
+        inputManager = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -27,9 +30,13 @@ public class PlayerInteract : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, distance, mask))
         {
+            Interactables interactable = hitInfo.collider.GetComponent<Interactables>();
             if (hitInfo.collider.GetComponent<Interactables>() != null) {
-                playerUI.UpdateText(hitInfo.collider.GetComponent<Interactables>().promptMessage); 
-
+                playerUI.UpdateText(interactable.promptMessage);
+                if (inputManager.onFoot.Interact.triggered)
+                {
+                    interactable.BaseInteract();
+                }
         }
         }
     }
