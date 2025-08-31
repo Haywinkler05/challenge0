@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     // Start is called before the first frame update
    
-    private float health;
+    public float health;
     private float lerpTimer;
     [Header("Health Bar")]
     public float maxHealth = 100f;
